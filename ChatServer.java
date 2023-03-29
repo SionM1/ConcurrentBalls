@@ -25,7 +25,7 @@ public class ChatServer {
 
 		this.rooms = new ArrayList<ChatRoom>();
 		for (int i = 0; i < numOfRooms; i++) {
-			this.rooms.add(new ChatRoom(i))
+			this.rooms.add(new ChatRoom(i, 10))
 			;
 		}
 
@@ -93,7 +93,7 @@ public class ChatServer {
 			System.out.println("incorrect room ID");
 			return;
 		}
-		rooms.get(chatRoomID).open();
+		rooms.get(chatRoomID).Open();
 	}
 
 	public synchronized void closeChatRoom(int chatRoomID) {
@@ -112,7 +112,7 @@ public class ChatServer {
 			System.out.println("incorrect room ID");
 			return false;
 		}
-		return rooms.get(chatRoomID.addUser(user));
+		return rooms.get(chatRoomID).enterRoom(user);
 	}
 
 	public synchronized void leaveRoom(User user, int chatRoomID) {
@@ -121,7 +121,7 @@ public class ChatServer {
 			System.out.println("incorrect room ID");
 			return;
 		}
-		return rooms.get(chatRoomID).addUser(user);
+		rooms.get(chatRoomID).leaveRoom(user);
 	}
 	public int getNumberOfRooms() {
 		return rooms.size();
